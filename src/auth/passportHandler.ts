@@ -3,7 +3,7 @@ import passportLocal from "passport-local";
 // import passportApiKey from "passport-headerapikey";
 import passportJwt from "passport-jwt";
 import { User } from "../models/user";
-import { JWT_SECRET } from "../util/secrets";
+import { JWT_SECRET } from "../util/checkEnv";
 
 
 const LocalStrategy = passportLocal.Strategy;

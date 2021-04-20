@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 import compression from "compression";
 import cors from "cors";
 
-import { MONGODB_URI } from "./util/secrets";
+import { MONGODB_URI, PORT } from "./util/checkEnv";
 
 import { ProductRoutes } from "./routes/productRoutes";
 import { UserRoutes } from "./routes/userRoutes";
@@ -25,7 +25,7 @@ class Server {
   }
 
   public config(): void {
-    this.app.set("port", process.env.PORT || 3000);
+    this.app.set("port", PORT || 3000);
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: false }));
     this.app.use(compression());
@@ -45,8 +45,10 @@ class Server {
       console.log("Trying to reconnect to Mongo ...");
       setTimeout(() => {
         mongoose.connect(MONGODB_URI, {
-          autoReconnect: true, keepAlive: true,
-          socketTimeoutMS: 3000, connectTimeoutMS: 3000
+          autoReconnect: true,
+          keepAlive: true,
+          socketTimeoutMS: 3000,
+          connectTimeoutMS: 3000,
         });
       }, 3000);
     });
@@ -59,12 +61,12 @@ class Server {
 
     const run = async () => {
       await mongoose.connect(MONGODB_URI, {
-        autoReconnect: true, keepAlive: true
+        autoReconnect: true,
+        keepAlive: true,
       });
     };
-    run().catch(error => console.error(error));
+    run().catch((error) => console.error(error));
   }
-
 
   public start(): void {
     this.app.listen(this.app.get("port"), () => {
@@ -74,7 +76,6 @@ class Server {
       );
     });
   }
-
 }
 
 const server = new Server();

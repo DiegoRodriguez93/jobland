@@ -4,7 +4,7 @@ import * as jwt from "jsonwebtoken";
 import passport from "passport";
 import "../auth/passportHandler";
 import { User } from "../models/user";
-import { JWT_SECRET } from "../util/secrets";
+import { JWT_SECRET } from "../util/checkEnv";
 
 
 export class UserController {
