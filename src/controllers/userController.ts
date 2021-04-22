@@ -6,19 +6,22 @@ import "../auth/passportHandler";
 import { User } from "../models/user";
 import { JWT_SECRET } from "../util/checkEnv";
 
-
 export class UserController {
-
   public async registerUser(req: Request, res: Response): Promise<void> {
-    const hashedPassword = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10));
+    const hashedPassword = bcrypt.hashSync(
+      req.body.password,
+      bcrypt.genSaltSync(10)
+    );
 
     await User.create({
       username: req.body.username,
       password: hashedPassword,
-
     });
 
-    const token = jwt.sign({ username: req.body.username, scope : req.body.scope }, JWT_SECRET);
+    const token = jwt.sign(
+      { username: req.body.username, scope: req.body.scope },
+      JWT_SECRET
+    );
     res.status(200).send({ token: token });
   }
 
@@ -34,10 +37,4 @@ export class UserController {
       }
     });
   }
-
-
-
-
-
-
 }

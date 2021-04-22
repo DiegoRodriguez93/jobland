@@ -9,14 +9,16 @@ export interface IProduct extends Document {
 
 export const productSchema = new Schema({
   productId: {
-    type: String, required: true,
-    unique: true
+    type: String,
+    required: true,
+    unique: true,
   },
   name: String,
   price: Number,
-  quantity: Number
+  quantity: Number,
 });
 
-
-
-export const Product: Model<IProduct> = model<IProduct>("Product", productSchema);
+export const Product: Model<IProduct> = model<IProduct>(
+  "Product",
+  productSchema
+);
